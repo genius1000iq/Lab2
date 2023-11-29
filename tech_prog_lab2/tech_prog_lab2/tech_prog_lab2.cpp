@@ -14,8 +14,11 @@ int splitSentences(const std::string& text, std::string*& sentences) {
     int count = 0;
     std::string sentence;
 
-    while (std::getline(iss, sentence, '.')) { // Предполагаем, что предложения разделены точкой
-        sentences[count++] = sentence;
+    while (std::getline(iss, sentence, '.') || std::getline(iss, sentence, '!') || std::getline(iss, sentence, '?')) { // Предполагаем, что предложения разделены точкой
+        if (!sentence.empty() && std::isupper(sentence[1])) 
+        {
+            sentences[count++] = sentence;
+        }
     }
 
     return count;
